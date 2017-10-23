@@ -2,7 +2,9 @@
 
 Passport strategy for authentication with [Discord](http://discordapp.com) through the OAuth 2.0 API.
 
-At time of writing there is no official page/documentation for this, so information can be read off the example project, such as how to set up an API application [here](http://github.com/vishnevskiy/discord-oauth2-example).
+~~At time of writing there is no official page/documentation for this, so information can be read off the example project, such as how to set up an API application [here](http://github.com/vishnevskiy/discord-oauth2-example).~~ This is actually no longer the case! Docs hooray!
+
+Before using this strategy, it is strongly recommended that you read through the official docs page [here](https://discordapp.com/developers/docs/topics/oauth2), especially about the scopes and understand how the auth works.
 
 ## Usage
 `npm install passport-discord --save`
@@ -13,18 +15,19 @@ The Discord authentication strategy authenticates users via a Discord user accou
 ```javascript
 var DiscordStrategy = require('passport-discord').Strategy;
 
-passport.use(new DiscordStrategy(
-    {
-        clientID: 'id',
-        clientSecret: 'secret',
-        callbackURL: 'callbackURL'
-    },
-    function(accessToken, refreshToken, profile, cb) {
-        User.findOrCreate({ discordId: profile.id }, function(err, user) {
-            return cb(err, user);
-        });
-    }
-));
+passport.use(new DiscordStrategy({
+    clientID: 'id',
+    clientSecret: 'secret',
+    callbackURL: 'callbackURL'
+},
+function(accessToken, refreshToken, profile, cb) {
+    if (err)
+        return done(err);
+
+    User.findOrCreate({ discordId: profile.id }, function(err, user) {
+        return cb(err, user);
+    });
+}));
 ```
 
 #### Authentication Requests
@@ -45,7 +48,48 @@ If using the `bot` scope, the `permissions` option can be set to indicate
 specific permissions your bot needs on the server ([permission codes](https://discordapp.com/developers/docs/topics/permissions)):
 
 ```javascript
-app.get("/auth/discord", passport.authenticate("discord", {permissions: 66321471}));
+app.get("/auth/discord", passport.authenticate("discord", { permissions: 66321471 }));
+```
+
+#### Refresh Token Usage
+In some use cases where the profile may be fetched more than once or you want to keep the user authenticated, refresh tokens may wish to be used. A package such as `passport-oauth2-refresh` can assist in doing this.
+
+Example:
+
+`npm install passport-oauth2-refresh --save`
+
+```javascript
+var DiscordStrategy = require('passport-discord').Strategy
+  , refresh = require('passport-oauth2-refresh');
+
+var discordStrat = new DiscordStrategy({
+    clientID: 'id',
+    clientSecret: 'secret',
+    callbackURL: 'callbackURL'
+},
+function(accessToken, refreshToken, profile, cb) {
+    profile.refreshToken = refreshToken; // store this for later refreshes
+    User.findOrCreate({ discordId: profile.id }, function(err, user) {
+        if (err)
+            return done(err);
+
+        return cb(err, user);
+    });
+});
+
+passport.use(discordStrat);
+refresh.use(discordStrat);
+```
+
+... then if we require refreshing when fetching an update or something ...
+
+```javascript
+refresh.requestNewAccessToken('discord', profile.refreshToken, function(err, accessToken, refreshToken) {
+    if (err)
+        throw; // boys, we have an error here.
+    
+    profile.accessToken = accessToken; // store this new one for our new requests!
+});
 ```
 
 
@@ -54,3 +98,6 @@ An Express server example can be found in the `/example` directory. Be sure to `
 
 ## Credits
 * Jared Hanson - used passport-github to understand passport more and kind of as a base.
+
+## License
+Licensed under the ISC license. The full license text can be found in the root of the project repository.
