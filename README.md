@@ -15,15 +15,15 @@ The Discord authentication strategy authenticates users via a Discord user accou
 ```javascript
 var DiscordStrategy = require('passport-discord').Strategy;
 
+var scopes = ['identify', 'email', 'guilds', 'guilds.join'];
+
 passport.use(new DiscordStrategy({
     clientID: 'id',
     clientSecret: 'secret',
-    callbackURL: 'callbackURL'
+    callbackURL: 'callbackURL',
+    scope: scopes
 },
 function(accessToken, refreshToken, profile, cb) {
-    if (err)
-        return done(err);
-
     User.findOrCreate({ discordId: profile.id }, function(err, user) {
         return cb(err, user);
     });
