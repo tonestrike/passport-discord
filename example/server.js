@@ -12,12 +12,14 @@ passport.deserializeUser(function(obj, done) {
 });
 
 var scopes = ['identify', 'email', /* 'connections', (it is currently broken) */ 'guilds', 'guilds.join'];
+var prompt = 'consent'
 
 passport.use(new Strategy({
     clientID: '',
     clientSecret: '',
     callbackURL: 'http://localhost:5000/callback',
-    scope: scopes
+    scope: scopes,
+    prompt: prompt
 }, function(accessToken, refreshToken, profile, done) {
     process.nextTick(function() {
         return done(null, profile);
@@ -31,7 +33,7 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-app.get('/', passport.authenticate('discord', { scope: scopes }), function(req, res) {});
+app.get('/', passport.authenticate('discord', { scope: scopes, prompt: prompt }), function(req, res) {});
 app.get('/callback',
     passport.authenticate('discord', { failureRedirect: '/' }), function(req, res) { res.redirect('/info') } // auth success
 );
