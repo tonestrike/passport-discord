@@ -43,12 +43,17 @@ app.get('/auth/discord/callback', passport.authenticate('discord', {
     res.redirect('/secretstuff') // Successful auth
 });
 ```
-
+##### Authentication Requests
 If using the `bot` scope, the `permissions` option can be set to indicate
 specific permissions your bot needs on the server ([permission codes](https://discordapp.com/developers/docs/topics/permissions)):
 
 ```javascript
 app.get("/auth/discord", passport.authenticate("discord", { permissions: 66321471 }));
+```
+You can also determine the default guild by passing in a Guild Discord ID and toggle the appearance of the guilds dropdown,
+
+```javascript
+app.get("/auth/discord", passport.authenticate("discord", { disable_guild_select: true, guild_id: 'someid' }));
 ```
 
 #### Refresh Token Usage
