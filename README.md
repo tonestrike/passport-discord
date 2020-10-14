@@ -43,7 +43,7 @@ app.get('/auth/discord/callback', passport.authenticate('discord', {
     res.redirect('/secretstuff') // Successful auth
 });
 ```
-##### Authentication Requests
+##### Bot Authentication
 If using the `bot` scope, the `permissions` option can be set to indicate
 specific permissions your bot needs on the server ([permission codes](https://discordapp.com/developers/docs/topics/permissions)):
 
