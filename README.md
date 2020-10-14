@@ -1,6 +1,6 @@
 # passport-discord
 
-**Notice**: I'm no longer too active with the Discord API, and only tinker around occasionally. So, if there is anybody who would like to be more active in maintaining, I'm happy to link to your fork as the new solution to use or give project permissions on this repo.
+The original author of this package is no longer maintaining this Strategy. This is a for of the original [passport-discord](https://github.com/nicholastay/passport-discord).
 
 Passport strategy for authentication with [Discord](http://discordapp.com) through the OAuth 2.0 API.
 
