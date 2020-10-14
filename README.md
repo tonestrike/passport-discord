@@ -103,6 +103,7 @@ An Express server example can be found in the `/example` directory. Be sure to `
 
 ## Credits
 * Jared Hanson - used passport-github to understand passport more and kind of as a base.
+* [Nicolas Tay](https://github.com/nicholastay/passport-discord) - Original author of this package
 
 ## License
 Licensed under the ISC license. The full license text can be found in the root of the project repository.
