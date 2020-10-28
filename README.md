@@ -1,6 +1,6 @@
 # passport-discord
 
-The original author of this package is no longer maintaining this Strategy. This is a for of the original [passport-discord](https://github.com/nicholastay/passport-discord).
+The author of the original repo is no longer maintaining the package. This is a fork of the original [passport-discord](https://github.com/nicholastay/passport-discord).
 
 Passport strategy for authentication with [Discord](http://discordapp.com) through the OAuth 2.0 API.
 
@@ -43,7 +43,7 @@ app.get('/auth/discord/callback', passport.authenticate('discord', {
     res.redirect('/secretstuff') // Successful auth
 });
 ```
-##### Authentication Requests
+##### Bot Authentication
 If using the `bot` scope, the `permissions` option can be set to indicate
 specific permissions your bot needs on the server ([permission codes](https://discordapp.com/developers/docs/topics/permissions)):
 
@@ -102,7 +102,8 @@ refresh.requestNewAccessToken('discord', profile.refreshToken, function(err, acc
 An Express server example can be found in the `/example` directory. Be sure to `npm install` in that directory to get the dependencies.
 
 ## Credits
-* Jared Hanson - used passport-github to understand passport more and kind of as a base.
+* [Jared Hanson](https://github.com/jaredhanson) - used passport-github to understand passport more and kind of as a base.
+* [Nicolas Tay](https://github.com/nicholastay) - Original author of this package
 
 ## License
 Licensed under the ISC license. The full license text can be found in the root of the project repository.
