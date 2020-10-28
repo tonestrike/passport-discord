@@ -68,6 +68,7 @@ Example:
 `npm install passport-oauth2-refresh --save`
 
 ```javascript
+var passport = require('passport')
 var DiscordStrategy = require('passport-discord').Strategy
   , refresh = require('passport-oauth2-refresh');
 
