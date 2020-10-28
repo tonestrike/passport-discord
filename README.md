@@ -6,6 +6,10 @@ Passport strategy for authentication with [Discord](http://discordapp.com) throu
 
 Before using this strategy, it is strongly recommended that you read through the official docs page [here](https://discord.com/developers/docs/topics/oauth2), especially about the scopes and understand how the auth works.
 
+## Changes
+- Ability to configure disable_guild_select, and guild_id parameters
+- Fixed bug causing callback to be called twice when get guilds request failed
+
 ## Usage
 `npm install passport-discord --save`
 
