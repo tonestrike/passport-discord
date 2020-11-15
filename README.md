@@ -7,7 +7,7 @@ Passport strategy for authentication with [Discord](http://discordapp.com) throu
 Before using this strategy, it is strongly recommended that you read through the official docs page [here](https://discord.com/developers/docs/topics/oauth2), especially about the scopes and understand how the auth works.
 
 ## Changes compared to parent library
-- Ability to configure disable_guild_select, and guild_id parameters
+- Ability to configure `disable_guild_select`, and `guild_id` parameters when authenticating bots
 - Fixed bug causing callback to be called twice when get guilds request failed
 - Fixed bug causing the response to be sent twice on error
 
