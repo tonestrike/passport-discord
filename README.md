@@ -9,6 +9,7 @@ Before using this strategy, it is strongly recommended that you read through the
 ## Changes compared to parent library
 - Ability to configure disable_guild_select, and guild_id parameters
 - Fixed bug causing callback to be called twice when get guilds request failed
+- Fixed bug causing the response to be sent twice on error
 
 ## Usage
 `npm install passport-discord --save`
